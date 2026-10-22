@@ -1,92 +1,104 @@
-# 提交到 Obsidian 社区市场
+# 提交到 Obsidian Community（当前流程）
 
-## 一句话说明
-
-往 [obsidianmd/obsidian-releases](https://github.com/obsidianmd/obsidian-releases) 的 `community-plugins.json` 加一条，提 PR。合并后插件出现在 Obsidian 应用内的「第三方插件 → 浏览」。
-
-没有独立网站，`obsidian.md/plugins` 那个网页也是读同一份 JSON。
+> 2026-05-12 起，`obsidian-releases` 的 PR 通道已关闭，改走社区站点 + 开发者后台 + 自动审核。
+> 旧文档里的 `community-plugins.json` PR 流程已作废。
 
 ---
 
-## 当前状态
-
-| 步骤 | 状态 |
-| :-- | :-- |
-| 插件 repo 与 Release（含三附件） | ✅ 完成 |
-| Fork `obsidian-releases` | ✅ 完成 |
-| 分支 `add-silent-reflect` 推送到 fork | ✅ 完成 |
-| 开 PR | ❌ **被上游拒收**（见下） |
-
-### 为什么开不了 PR
+## 入口
 
 ```
-GraphQL: Yutiao-xX does not have the correct permissions to execute CreatePullRequest
-REST:    HTTP 404
+https://community.obsidian.md/account/profile
 ```
 
-同一个账号向自己的仓库建 PR 是成功的，所以**不是账号权限问题，是这个仓库限制了交互**。常见原因：
-
-- 仓库开启了 *interaction limits*（只允许已有贡献者开 issue/PR）
-- 新账号对高流量仓库有冷却期
-
-**解决方式**：用网页手动开，通常能过。见下。
+需要 **Obsidian 账号**（不是 GitHub 账号）。没有就现注册，免费。
+登录后连接 GitHub（只读你的公开仓库列表，用来验证仓库归属）。
 
 ---
 
-## 手动开 PR（一次点击）
+## 要填的内容（直接复制）
 
-分支已经推好，直接打开这个链接就会生成 PR 表单：
-
-```
-https://github.com/obsidianmd/obsidian-releases/compare/master...Yutiao-xX:add-silent-reflect?expand=1
-```
-
-标题填：
+### 名称
 
 ```
-Add plugin: Silent Reflect
+Silent Reflect
 ```
 
-正文用下面这段（也可直接复制 `PR-BODY.md`）。
+### 描述
 
-如果网页也提示无权限，就先在仓库里参与一次讨论（评论一个 issue），通常几小时到一天后限制解除。
+```
+Silently tracks what you write and change in your vault, then generates daily and weekly reflections. Strictly read-only.
+```
+
+### 仓库
+
+```
+Yutiao-xX/silent-reflect
+```
+
+### 定价标签
+
+```
+Free
+```
+
+> 三个选项的含义：`Free` 完全不涉及付费；`Optional payments` 有可选付费或连接付费服务；
+> `Paid` 核心功能必须付费。我们不涉及任何付费，选 Free。
+> Obsidian Community 本身不是商店，不提供内置支付。
+
+### 截图
+
+上传本目录的 `screenshot.png`（整窗，1450×932）。
+
+### 分类 / 标签
+
+站点会给出分类列表。优先选 `Productivity` 或 `Note-taking`；
+如果有 `Journaling` / `Reflection` 这类更贴的，优先选它。
 
 ---
 
-## 加进去的那一条
+## 提交后会怎样
 
-```json
-{
-  "id": "silent-reflect",
-  "name": "Silent Reflect",
-  "author": "吴子明",
-  "description": "Silently tracks what you write and change in your vault, then generates daily and weekly reflections. Strictly read-only.",
-  "repo": "Yutiao-xX/silent-reflect"
-}
-```
+1. 自动审核立即开始，**几分钟**出结果
+2. 通过 → **24 小时内**出现在应用内「第三方插件 → 浏览」
+3. 未通过 → 后台会列出具体问题（代码质量 / 开发者政策 / 安全扫描）
+
+失败不用重新提交，改完代码发新 release 即可，会自动重审。
 
 ---
 
-## 审核要点（被退回的常见原因）
+## 可能被点名的地方（先自查）
 
-| 原因 | 我们的情况 |
-| :-- | :-- |
-| `id` 与已有插件冲突 | ✅ 已查，9295 条里无 `silent-reflect` |
-| id 里含 obsidian | ✅ 不含 |
-| Release 没有三个附件 | ✅ `main.js` / `manifest.json` / `styles.css` 齐全 |
-| `manifest.json` 与 tag 版本不一致 | ✅ 都是 `0.1.1`，CI 里有校验 |
-| 仓库缺 LICENSE | ✅ MIT |
-| README 没有安装说明 | ✅ 中英双语 |
-| 提交了 `data.json` | ✅ `.gitignore` 已排除 |
-| 仓库不是 public | ✅ public |
-
-审核周期 1–4 周。
+| 项 | 位置 | 处理 |
+| :-- | :-- | :-- |
+| `console.error` | `main.js` 的 `listFiles` catch | 一般算 warning，不 fail |
+| 防抖 `setTimeout` 未在 onunload 清理 | `onVaultChange` | 若被标红，改成 `this.registerInterval` / 显式 clear |
+| 中文 UI 文案 | 全局 | 不违反政策 |
+| 依赖外部 Node 进程 | 设置项说明 | 已声明 `isDesktopOnly: true` |
 
 ---
 
-## 合并之后会自动发生
+## 常见问题
 
-- Obsidian 用户在「浏览」里能搜到
-- `obsidian.md/plugins` 网页索引会出现
-- 有下载量统计（这是唯一的量级指标）
-- 后续发版只需打新 tag，市场自动读取，不用再提 PR
+**Q：还需要往 GitHub 提 PR 吗？**
+不需要。那个通道已经关了，截图里「该仓库的一位所有者已禁用打开拉取请求的功能」就是这个意思。
+
+**Q：以后发新版本还要来后台吗？**
+不用。直接在 GitHub 打 tag 发 release，会自动重审。
+只有审核失败时才需要进后台看详细原因。
+
+**Q：能不能闭源？**
+现在不接受新的闭源插件。我们是 MIT，没问题。
+
+**Q：多久能上架？**
+审核几分钟，上架 24 小时内。比之前的 1–4 周快很多。
+
+---
+
+## 我这边已经准备好的
+
+- Release `0.1.1`：`main.js` / `manifest.json` / `styles.css` 三附件齐全
+- `manifest.json` 与 tag 版本一致（CI 里有校验）
+- id `silent-reflect` 已确认在 9295 个现有插件中不冲突，且不含 "obsidian"
+- 仓库 public、MIT、含中英 README、16 个 topics、description 已填
+- 截图 `docs/screenshot.png` 可直接上传

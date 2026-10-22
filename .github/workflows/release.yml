@@ -7,6 +7,9 @@ on:
 
 permissions:
   contents: write
+  # 生成构建来源证明（artifact attestation），社区审核会把「缺少 attestation」列为建议
+  id-token: write
+  attestations: write
 
 jobs:
   release:
@@ -24,6 +27,14 @@ jobs:
             exit 1
           fi
           echo "版本一致: $MANIFEST"
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            main.js
+            manifest.json
+            styles.css
 
       - name: Create release with plugin assets
         env:

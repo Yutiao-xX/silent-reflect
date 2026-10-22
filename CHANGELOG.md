@@ -1,5 +1,12 @@
 # 变更记录
 
+## 0.1.2 — 2026-10-22
+
+- 移除 README 中的界面截图（含个人知识库信息），改由 Obsidian Community 列表页展示
+- 去掉 CSS 中唯一的 `!important`，改用选择器特异性覆盖（社区审核 CSS Lint 建议）
+- Release 增加构建来源证明（artifact attestation）
+- README 增加「权限说明」一节，解释为何需要 fs 与 child_process
+
 ## 0.1.1 — 2026-10-22
 
 - 新增 About 页（英文项目介绍）

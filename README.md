@@ -7,8 +7,6 @@
 
 ---
 
-![Silent Reflect in Obsidian](docs/screenshot.png)
-
 ## Why Silent Reflect?
 
 You write thousands of words in your vault, but you rarely look back at how your ideas actually evolved.
@@ -105,6 +103,20 @@ Settings → Silent Reflect:
 - The engine reads `.md` files only; the sole writable directory is `_Reflection/` (asserted at runtime).
 - When a model is used, only the candidate entry and its source excerpt are sent — never the whole vault.
 - No telemetry, no analytics, no hidden collection.
+
+## Permissions and why they are needed
+
+Obsidian's automated review flags two capabilities. Both are deliberate, and both are required by the design described above.
+
+| Capability | Why | Scope |
+| :-- | :-- | :-- |
+| `fs` (filesystem) | The plugin has to locate `run.mjs` and read the generated Markdown from `_Reflection/`. The Obsidian vault API cannot see files outside the vault, and the engine lives outside it by default. | Reads only inside your vault and the engine directory you configure; the plugin itself never writes notes. |
+| `child_process` | The "Regenerate" button runs your local Node engine once, then reads its output. Generation must happen outside Obsidian so it can also run on a schedule while Obsidian is closed. | Spawns only the `run.mjs` path you configure, with a fixed argument list. No arbitrary command input. |
+
+If you would rather not grant these, the plugin still works as a **viewer**: the engine can be run from a terminal or a scheduled task, and the panel only reads the results. You can also remove the ribbon entry point and use the panel read-only.
+
+The plugin does not phone home, does not include an update checker, and does not bundle analytics.
+
 
 ---
 
