@@ -120,3 +120,53 @@
   color: var(--text-faint);
   font-size: var(--font-ui-smaller);
 }
+
+/* ---------- About 页 ---------- */
+.reflection-about h2 {
+  font-size: 1.35em;
+  margin: 0.2em 0 0.1em;
+  color: var(--text-normal);
+}
+.reflection-about .about-tagline {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 1em;
+}
+.reflection-about h3 {
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  margin: 1.3em 0 0.4em;
+  padding-left: 0;
+  margin-left: 0;
+  border-left: none !important;
+  color: var(--text-accent);
+  font-weight: 600;
+}
+.reflection-about ul {
+  margin: 0.3em 0 0.6em;
+  padding-left: 1.1em;
+}
+.reflection-about li {
+  margin: 0.35em 0;
+  line-height: 1.65;
+}
+.reflection-about .about-note {
+  margin: 1.1em 0;
+  padding: 8px 10px;
+  border-left: 2px solid var(--interactive-accent);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: 13px;
+  border-radius: var(--radius-s);
+}
+.reflection-about .about-foot {
+  margin-top: 1.4em;
+  padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-faint);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.reflection-about .about-foot a { color: var(--text-accent); }

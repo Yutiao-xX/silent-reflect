@@ -19,6 +19,7 @@ const TABS = [
   { id: 'daily', label: '今日', dir: 'Daily' },
   { id: 'weekly', label: '本周', dir: 'Weekly' },
   { id: 'insights', label: '洞察', dir: 'insights', match: /^insights-/ },
+  { id: 'about', label: 'About', dir: null },
 ];
 const DEFAULT_SETTINGS = {
   toolsDir: '',
@@ -100,7 +101,8 @@ class ReflectionView extends ItemView {
       el.onclick = async () => { this.tab = t.id; this.selected = null; await this.render(); };
     }
 
-    const tabDef = TABS.find((t) => t.id === this.tab);
+const tabDef = TABS.find((t) => t.id === this.tab);
+    if (tabDef.id === 'about') { this.renderAbout(root); return; }
     const files = await this.listFiles(tabDef.dir, tabDef.match);
 
     if (files.length === 0) {
@@ -136,6 +138,47 @@ class ReflectionView extends ItemView {
     root.scrollTop = keepScroll;  // 自动刷新不该把读者弹回顶部
   }
 
+  renderAbout(root) {
+    const box = root.createDiv({ cls: 'reflection-about' });
+    box.createEl('h2', { text: 'Silent Reflect' });
+    box.createEl('div', { text: 'Passive writing trace & reflection for Obsidian', cls: 'about-tagline' });
+
+    const section = (title, items) => {
+      box.createEl('h3', { text: title });
+      const ul = box.createEl('ul');
+      for (const it of items) ul.createEl('li', { text: it });
+    };
+
+    section('WHAT IT DOES', [
+      'Watches how your notes change: which section, how often, how long it stalled.',
+      'Generates a daily reflection (4 dimensions) and a weekly one (6).',
+      'Surfaces behaviour you cannot see yourself: repeated restarts, churn without closure, conclusions that flipped.',
+      'Every insight cites the note it came from.',
+    ]);
+
+    section('WHAT IT DOES NOT DO', [
+      'Never modifies, moves or deletes your notes.',
+      'Writes only inside the _Reflection folder.',
+      'No telemetry. The panel makes no network requests.',
+    ]);
+
+    section('HOW IT WORKS', [
+      'Capture: file events and section-level diffs, append-only.',
+      'Screen: deterministic rules propose candidates, no model involved.',
+      'Reflect: a model judges each candidate against your own evidence and may reject it.',
+    ]);
+
+    box.createEl('p', {
+      text: 'An empty insight day is a valid result — nothing is padded to look productive.',
+      cls: 'about-note',
+    });
+
+    const foot = box.createDiv({ cls: 'about-foot' });
+    foot.createEl('span', { text: 'v0.1.1 · MIT' });
+    const link = foot.createEl('a', { text: 'github.com/Yutiao-xX/silent-reflect' });
+    link.href = 'https://github.com/Yutiao-xX/silent-reflect';
+    link.target = '_blank';
+  }
   async regenerate(btn) {
     if (this.busy) return;
     const s = this.plugin.settings;
