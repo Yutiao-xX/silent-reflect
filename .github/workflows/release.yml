@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # manifest 版本号必须和 tag 一致，否则 Obsidian 会认为装了旧版
+      - name: Check version matches tag
+        run: |
+          MANIFEST=$(node -p "require('./manifest.json').version")
+          TAG="${GITHUB_REF_NAME}"
+          if [ "$MANIFEST" != "$TAG" ]; then
+            echo "manifest.json 版本 ($MANIFEST) 与 tag ($TAG) 不一致"
+            exit 1
+          fi
+          echo "版本一致: $MANIFEST"
+
+      - name: Create release with plugin assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            main.js manifest.json styles.css \
+            --title "${GITHUB_REF_NAME}" \
+            --notes "见 CHANGELOG.md"

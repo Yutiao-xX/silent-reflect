@@ -1,0 +1,10 @@
+{
+  "id": "silent-reflect",
+  "name": "Silent Reflect",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Silently tracks what you write and change in your vault, then generates daily and weekly reflections. Strictly read-only.",
+  "author": "吴子明",
+  "authorUrl": "https://github.com/Yutiao-xX",
+  "isDesktopOnly": true
+}

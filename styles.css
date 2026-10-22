@@ -1,0 +1,122 @@
+/* Reflection 插件样式
+ * 全部使用 Obsidian 官方 CSS 变量，不写死任何色值 —— 自动跟随明暗主题。
+ * 2026-10-22 按用户选择调整：字号 14px / 行高 1.8（舒适），H3 左侧细色条。 */
+
+.reflection-view {
+  padding: 14px 16px 28px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.reflection-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.reflection-title {
+  font-weight: 600;
+  font-size: var(--font-ui-medium);
+  color: var(--text-normal);
+}
+
+.reflection-btn {
+  padding: 4px 12px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  background: var(--interactive-normal);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+  cursor: pointer;
+}
+.reflection-btn:hover { background: var(--interactive-hover); }
+.reflection-btn:disabled { opacity: 0.6; cursor: default; }
+
+.reflection-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  margin-bottom: 12px;
+}
+
+.reflection-tab {
+  padding: 6px 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  cursor: pointer;
+}
+.reflection-tab:hover { color: var(--text-normal); }
+.reflection-tab.is-active {
+  color: var(--text-normal);
+  border-bottom-color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+.reflection-select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 5px 7px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: var(--font-ui-smaller);
+}
+
+.reflection-body {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.reflection-body h1 {
+  font-size: 1.2em;
+  margin: 0.7em 0 0.45em;
+}
+
+.reflection-body h2 {
+  font-size: 1.05em;
+  margin: 1.1em 0 0.45em;
+  color: var(--text-normal);
+}
+
+/* 条目分隔：每个 H3 左侧一根 2px 细色条。
+ * 洞察、候选都以 H3 起条，长文里能一眼分清条目边界。 */
+.reflection-body h3 {
+  font-size: 0.95em;
+  margin: 1em 0 0.4em;
+  padding-left: 9px;
+  margin-left: -11px;
+  border-left: 2px solid var(--interactive-accent);
+  color: var(--text-normal);
+  line-height: 1.6;
+}
+
+.reflection-body ul { padding-left: 1.25em; margin: 0.4em 0; }
+.reflection-body li { margin: 0.25em 0; }
+
+.reflection-body blockquote {
+  margin: 0.7em 0;
+  padding-left: 0.9em;
+  border-left: 2px solid var(--background-modifier-border);
+  color: var(--text-muted);
+}
+
+.reflection-empty {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 16px 0;
+}
+
+.reflection-meta {
+  margin-top: 20px;
+  padding-top: 9px;
+  border-top: 1px solid var(--background-modifier-border);
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}

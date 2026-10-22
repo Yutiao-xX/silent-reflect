@@ -1,0 +1,11 @@
+{
+  "name": "silent-reflect",
+  "version": "0.1.0",
+  "description": "Obsidian 侧边栏面板：查看每日/每周复盘与洞察，一键重新生成",
+  "main": "main.js",
+  "license": "MIT",
+  "private": true,
+  "keywords": ["obsidian", "reflection", "journal", "review"],
+  "author": "吴子明",
+  "repository": "https://github.com/Yutiao-xX/silent-reflect"
+}

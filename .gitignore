@@ -1,0 +1,13 @@
+# Obsidian 运行时产物
+data.json
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+
+# 截图：根目录的不提交，docs 里的要提交（README 用）
+/*.png
+!docs/*.png
