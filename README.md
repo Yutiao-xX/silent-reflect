@@ -7,7 +7,7 @@
 
 ---
 
-![Silent Reflect sidebar panel](docs/screenshot.png)
+![Silent Reflect in Obsidian](docs/screenshot.png)
 
 ## Why Silent Reflect?
 
