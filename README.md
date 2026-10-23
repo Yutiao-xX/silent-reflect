@@ -7,6 +7,8 @@
 
 ---
 
+![Silent Reflect in Obsidian](docs/screenshot.png)
+
 ## Why Silent Reflect?
 
 You write thousands of words in your vault, but you rarely look back at how your ideas actually evolved.
