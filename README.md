@@ -7,7 +7,7 @@
 
 ---
 
-![Silent Reflect in Obsidian](docs/screenshot.png)
+![Silent Reflect in Obsidian](https://raw.githubusercontent.com/Yutiao-xX/silent-reflect/main/docs/screenshot.png)
 
 ## Why Silent Reflect?
 

@@ -9,7 +9,7 @@
 
 ---
 
-![Silent Reflect 在 Obsidian 里](docs/screenshot.png)
+![Silent Reflect 在 Obsidian 里](https://raw.githubusercontent.com/Yutiao-xX/silent-reflect/main/docs/screenshot.png)
 
 ## 为什么需要它
 
